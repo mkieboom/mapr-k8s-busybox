@@ -8,8 +8,8 @@
 kind: Pod
 apiVersion: v1
 metadata:
-  name: test-secure-provisioner
-  namespace: mapr-secure
+  name: mapr-k8s-busybox
+  namespace: mapr-apps
 spec:
 #  nodeSelector:
 #    kubernetes.io/hostname: node01

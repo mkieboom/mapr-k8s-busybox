@@ -3,6 +3,12 @@
 ##### Pre-requisite
 Make sure to have the MapR Volume Driver for Kubernetes installed and running on your Kubernetes environment.
 
+##### Clone this repo
+```
+git clone https://github.com/mkieboom/mapr-k8s-busybox
+cd mapr-k8s-busybox
+```
+
 ##### Launch the dynamic MapR volume creation on Kubernetes
 ```
 # Change the MapR specific parameters in the yaml file to reflect your MapR cluster configuration
