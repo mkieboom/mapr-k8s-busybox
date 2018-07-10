@@ -1,0 +1,86 @@
+# MapR Volume Driver Plugin for Kubernetes
+
+# Using the MapR Volume Driver Plugin for dynamic provisioning
+
+# Simple busybox container
+
+# MapR Apps Namespace
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: mapr-apps
+  labels:
+    name: mapr-apps
+
+
+# Secret to authenticate with MapR Converged Data Platform
+---
+apiVersion: v1
+kind: Secret
+metadata:
+  name: mapr-provisioner-secrets
+  namespace: mapr-apps
+type: Opaque
+data:
+# base64 encoding: "echo -n '<username/password>' | base64" eg:
+# echo -n 'mapr' | base64
+  MAPR_CLUSTER_USER: "bWFwcg=="
+  MAPR_CLUSTER_PASSWORD: "bWFwcg=="
+
+
+# Ticket to authenticate with MapR Converged Data Platform
+---
+apiVersion: v1
+kind: Secret
+metadata:
+  name: mapr-ticket-secret
+  namespace: mapr-apps
+type: Opaque
+data:
+# To create a Ticket:
+# 1. maprlogin password -user mapr
+# 2. echo -n $(cat /tmp/maprticket_####) | base64
+# 3. combine 6 lines base64 output in single CONTAINER_SECRET line:
+  CONTAINER_TICKET: ZGVtby5tYXByLmNvbSBlNy9JWUp4SXI2b25odEx6U294bFBoNEdvRlZDb0RoMElJKzV6eUN3clNvY1ZLdWNPUEN4WkwvTjd0L0ZYL3lKcTh5V0NqTUEyT1gzNzNIcVdscXFQdWxYM1MxVjRYckxCNndxUUlOOFRydVlNSW9QL0tmdXQxbmlPRFNNZllFNURvWGVMRTUvWGVuM1luT2tpRGhSTkVoajhJallpUXBMNEhaN1hmSzdpd1FhNUVPVVpkbzhzWHBobXZzcEZFOVkyakhqc2lSaTlFT0VSdFQycUhFT3hmSVdkRi9qaVNCWkVqdTBWbUlnQ05VOEUzVEIva1ltMHNvVWJONnFNQ1FFNndEaTZoMzI5b25NTG9qbmFMRmxWS0l1amZFeDFMQT0=
+
+# StorageClass for MapR Converged Data Platform
+---
+apiVersion: storage.k8s.io/v1
+kind: StorageClass
+metadata:
+   name: maprfs-sc-busybox
+   namespace: mapr-apps
+provisioner: mapr.com/maprfs
+parameters:
+    # Configure below MapR cluster details to reflect your MapR cluster configuration
+    restServers: "172.16.4.203:8443"
+    cldbHosts: "172.16.4.203"
+    cluster: "demo.mapr.com"
+    securityType: "secure"
+    ticketSecretName: "mapr-ticket-secret"
+    ticketSecretNamespace: "mapr-apps"
+    maprSecretName: "mapr-provisioner-secrets"
+    maprSecretNamespace: "mapr-apps"
+    namePrefix: "busybox"
+    mountPrefix: "/buxybox"
+    reclaimPolicy: "Retain"
+    advisoryquota: "100M"
+    type: "rw"
+    mount: "1"
+
+
+# PersistentVolumeClaim for MapR Converged Data Platform
+---
+kind: PersistentVolumeClaim
+apiVersion: v1
+metadata:
+  name: maprfs-pvc-busybox
+  namespace: mapr-apps
+spec:
+  accessModes:
+    - ReadWriteOnce
+  storageClassName: maprfs-sc-busybox
+  resources:
+    requests:
+      storage: 300M
