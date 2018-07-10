@@ -64,7 +64,7 @@ parameters:
     maprSecretName: "mapr-provisioner-secrets"
     maprSecretNamespace: "mapr-apps"
     namePrefix: "busybox"
-    mountPrefix: "/buxybox"
+    mountPrefix: "/busybox"
     reclaimPolicy: "Retain"
     advisoryquota: "100M"
     type: "rw"
