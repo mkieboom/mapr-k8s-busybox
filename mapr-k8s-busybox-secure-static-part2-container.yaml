@@ -1,10 +1,12 @@
 # MapR Volume Driver Plugin for Kubernetes
 
-# Using the MapR Volume Driver Plugin for dynamic provisioning
+# Using the MapR Volume Driver Plugin for STATIC provisioning
 
-# Simple busybox container
+# Provisioning: Static
+# Container:    Busybox
 
 # Pod
+---
 kind: Pod
 apiVersion: v1
 metadata:
@@ -22,12 +24,8 @@ spec:
     imagePullPolicy: Always
     volumeMounts:
     - name: maprfs-pvc
-      mountPath: "/dynvolume"
-  restartPolicy: "Never"
+      mountPath: "/mapr"
   volumes:
   - name: maprfs-pvc
     persistentVolumeClaim:
-      claimName: maprfs-pvc-busybox
-
-
- 
+      claimName: maprfs-pvc-busybox-secure-static

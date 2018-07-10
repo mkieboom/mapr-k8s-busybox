@@ -2,7 +2,8 @@
 
 # Using the MapR Volume Driver Plugin for dynamic provisioning
 
-# Simple busybox container
+# Provisioning: dynamic
+# Container:    busybox
 
 # MapR Apps Namespace
 ---
@@ -49,7 +50,7 @@ data:
 apiVersion: storage.k8s.io/v1
 kind: StorageClass
 metadata:
-   name: maprfs-sc-busybox
+   name: maprfs-sc-busybox-secure-dynamic
    namespace: mapr-apps
 provisioner: mapr.com/maprfs
 parameters:
@@ -75,12 +76,12 @@ parameters:
 kind: PersistentVolumeClaim
 apiVersion: v1
 metadata:
-  name: maprfs-pvc-busybox
+  name: maprfs-pvc-busybox-secure-dynamic
   namespace: mapr-apps
 spec:
   accessModes:
     - ReadWriteOnce
-  storageClassName: maprfs-sc-busybox
+  storageClassName: maprfs-sc-busybox-secure-dynamic
   resources:
     requests:
       storage: 300M

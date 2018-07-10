@@ -1,0 +1,76 @@
+# MapR Volume Driver Plugin for Kubernetes
+
+# Using the MapR Volume Driver Plugin for static provisioning
+
+# Provisioning: Static
+# Container:    Busybox
+
+# MapR Apps Namespace
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: mapr-apps
+  labels:
+    name: mapr-apps
+
+# Ticket to authenticate with MapR Converged Data Platform
+---
+apiVersion: v1
+kind: Secret
+metadata:
+  name: mapr-ticket-secret
+  namespace: mapr-apps
+type: Opaque
+data:
+# To create a Ticket:
+# 1. maprlogin password -user mapr
+# 2. echo -n $(cat /tmp/maprticket_####) | base64
+# 3. combine 6 lines base64 output in single CONTAINER_SECRET line:
+  CONTAINER_TICKET: ZGVtby5tYXByLmNvbSBlNy9JWUp4SXI2b25odEx6U294bFBoNEdvRlZDb0RoMElJKzV6eUN3clNvY1ZLdWNPUEN4WkwvTjd0L0ZYL3lKcTh5V0NqTUEyT1gzNzNIcVdscXFQdWxYM1MxVjRYckxCNndxUUlOOFRydVlNSW9QL0tmdXQxbmlPRFNNZllFNURvWGVMRTUvWGVuM1luT2tpRGhSTkVoajhJallpUXBMNEhaN1hmSzdpd1FhNUVPVVpkbzhzWHBobXZzcEZFOVkyakhqc2lSaTlFT0VSdFQycUhFT3hmSVdkRi9qaVNCWkVqdTBWbUlnQ05VOEUzVEIva1ltMHNvVWJONnFNQ1FFNndEaTZoMzI5b25NTG9qbmFMRmxWS0l1amZFeDFMQT0=
+
+
+---
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: maprfs-pv-busybox-secure-static pv-testsecure1
+  namespace: mapr-apps
+spec:
+  capacity:
+    storage: 300M
+  accessModes:
+    - ReadWriteOnce
+  persistentVolumeReclaimPolicy: Retain
+  claimRef:
+    namespace: mapr-apps
+    name: maprfs-pvc-busybox-secure-static pvc-testsecure1
+  flexVolume:
+    driver: "mapr.com/maprfs"
+    options:
+      restServers: "172.16.4.203:8443"
+      cldbHosts: "172.16.4.203"
+      cluster: "demo.mapr.com"
+      securityType: "secure"
+      ticketSecretName: "mapr-ticket-secret"
+      ticketSecretNamespace: "mapr-apps"
+      volumePath: "/busybox"
+
+
+# PersistentVolumeClaim for MapR Converged Data Platform
+---
+kind: PersistentVolumeClaim
+apiVersion: v1
+metadata:
+  name: maprfs-pvc-busybox-secure-static
+  namespace: mapr-apps
+spec:
+  accessModes:
+    - ReadWriteOnce
+  storageClassName: maprfs-sc-busybox-secure-static
+  resources:
+    requests:
+      storage: 300M
+
+
+
