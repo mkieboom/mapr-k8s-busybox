@@ -29,8 +29,6 @@ spec:
       mountPath: "/dynvolume"
   restartPolicy: "Never"
   serviceAccountName: test-sa
-  securityContext:
-    fsGroup: -1
   volumes:
   - name: maprfs-pvc
     persistentVolumeClaim:
