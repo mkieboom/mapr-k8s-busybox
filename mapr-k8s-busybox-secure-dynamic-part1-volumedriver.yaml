@@ -14,6 +14,14 @@ metadata:
   labels:
     name: mapr-apps
 
+---
+
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: test-sa
+  namespace: mapr-apps
+
 
 # Secret to authenticate with MapR Converged Data Platform
 ---
