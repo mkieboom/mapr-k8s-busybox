@@ -28,6 +28,7 @@ spec:
     - name: maprfs-pvc
       mountPath: "/dynvolume"
   restartPolicy: "Never"
+  serviceAccount: test-sa
   serviceAccountName: test-sa
   volumes:
   - name: maprfs-pvc
