@@ -26,7 +26,7 @@ spec:
     imagePullPolicy: Always
     volumeMounts:
     - name: maprfs-pvc
-      mountPath: "/dynvolume"
+      mountPath: "/mapr"
   restartPolicy: "Never"
   serviceAccount: test-sa
   serviceAccountName: test-sa
