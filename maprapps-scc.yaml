@@ -5,7 +5,7 @@ defaultAddCapabilities: null
 kind: SecurityContextConstraints
 metadata:
   annotations: null
-  name: maprkdf-scc
+  name: maprapps-scc
 priority: null
 readOnlyRootFilesystem: false
 runAsUser:
