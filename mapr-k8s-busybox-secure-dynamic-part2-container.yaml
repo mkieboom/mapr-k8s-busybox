@@ -5,9 +5,6 @@
 # Provisioning: dynamic
 # Container:    busybox
 
-## TESTING SSC:
-## serviceAccountName: test-sa 
-
 # Pod
 kind: Pod
 apiVersion: v1
@@ -28,8 +25,8 @@ spec:
     - name: maprfs-pvc
       mountPath: "/mapr"
   restartPolicy: "Never"
-  serviceAccount: test-sa
-  serviceAccountName: test-sa
+  serviceAccount: mapr-apps-sa
+  serviceAccountName: mapr-apps-sa
   volumes:
   - name: maprfs-pvc
     persistentVolumeClaim:

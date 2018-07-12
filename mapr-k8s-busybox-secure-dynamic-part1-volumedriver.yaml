@@ -14,12 +14,12 @@ metadata:
   labels:
     name: mapr-apps
 
+# MapR Apps ServiceAccount
 ---
-
 apiVersion: v1
 kind: ServiceAccount
 metadata:
-  name: test-sa
+  name: mapr-apps-sa
   namespace: mapr-apps
 
 
