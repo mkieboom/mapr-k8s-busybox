@@ -5,7 +5,7 @@ defaultAddCapabilities: null
 kind: SecurityContextConstraints
 metadata:
   annotations: null
-  name: maprapps-scc
+  name: mapr-apps-scc
 priority: 5
 readOnlyRootFilesystem: false
 runAsUser:
