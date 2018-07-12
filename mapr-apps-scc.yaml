@@ -1,4 +1,4 @@
-# Copyright (c) 2009 & onwards. MapR Tech, Inc., All rights reserved
+---
 apiVersion: v1
 allowHostDirVolumePlugin: true
 defaultAddCapabilities: null
@@ -26,3 +26,5 @@ volumes:
 - flexVolume
 - persistentVolumeClaim
 allowHostDirVolumePlugin: true
+
+---

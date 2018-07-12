@@ -36,6 +36,9 @@ data:
 # echo -n 'mapr' | base64
   MAPR_CLUSTER_USER: "bWFwcg=="
   MAPR_CLUSTER_PASSWORD: "bWFwcg=="
+# echo -n 'user01' | base64
+#  MAPR_CLUSTER_USER: "dXNlcjAx"
+#  MAPR_CLUSTER_PASSWORD: "dXNlcjAx"
 
 
 # Ticket to authenticate with MapR Converged Data Platform
