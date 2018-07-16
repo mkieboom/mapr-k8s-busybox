@@ -9,11 +9,11 @@ metadata:
 priority: 5
 readOnlyRootFilesystem: false
 runAsUser:
-  type: RunAsAny
+  type: MustRunAsRange
 fsGroup:
   type: RunAsAny
 seLinuxContext:
-  type: RunAsAny
+  type: MustRunAs
 supplementalGroups:
   type: RunAsAny
 volumes:
@@ -26,5 +26,3 @@ volumes:
 - flexVolume
 - persistentVolumeClaim
 allowHostDirVolumePlugin: true
-
----
