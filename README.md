@@ -22,8 +22,12 @@ kubectl create -f mapr-k8s-busybox-secure-part1-volumedriver.yaml
 
 kubectl create -f mapr-k8s-busybox-secure-part2-container.yaml
 ```
+##### Logon into docker
+```
+kubectl exec -it mapr-k8s-busybox -n mapr-apps -- sh
+```
 
-##### Logon into docker container and check access to MapR
+##### Check access to MapR
 ```
 ls -al /dynvolume
 echo "hello world" >> /dynvolume/myfile.txt
